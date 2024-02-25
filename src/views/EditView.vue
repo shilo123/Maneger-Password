@@ -114,7 +114,7 @@ export default {
     const FormToken = reactive({});
     const FormStam = reactive({});
     const { data, isFinished } = useAxios(
-      "http://localhost:3006/" + "FindItem/" + id.value
+      "https://server-pass-404f2e7b3bdf.herokuapp.com/" + "FindItem/" + id.value
     );
 
     // $ Methods:
@@ -155,7 +155,7 @@ export default {
     async Update_Form(form) {
       //   console.log( form );
       let { data } = await axios.put(
-        "http://localhost:3006/" + "PutData",
+        "https://server-pass-404f2e7b3bdf.herokuapp.com/" + "PutData",
         form
       );
       if (data) {

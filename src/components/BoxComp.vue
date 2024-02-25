@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col
-        :span="6"
+        :span="Wscreen ? 6 : 12"
         v-for="({ Name, UserName, password, URL, type, id }, i) in data"
         :key="i"
         v-show="type === 'Normal'"
@@ -58,7 +58,7 @@
         </div>
       </el-col>
       <el-col
-        :span="6"
+        :span="Wscreen ? 6 : 12"
         v-for="({ Name, URL, type, Token, id }, i) in data"
         :key="i"
         v-show="type === 'Token'"
@@ -100,7 +100,7 @@
         </div>
       </el-col>
       <el-col
-        :span="6"
+        :span="Wscreen ? 6 : 12"
         v-for="({ Name, URL, type, id }, i) in data"
         :key="i"
         v-show="type === 'Stam'"
@@ -170,28 +170,44 @@ export default {
       //   console.log(data);
     });
     // $ Vars:
-
     // $ Methods:
 
     // $Computeds:
+    const Wscreen = computed(() => {
+      return window.innerWidth > 450;
+    });
     const data = computed(() => {
       return Store.state.data;
     });
     // $ Whatchs:
-    return { data };
+    return { data, Wscreen };
   },
   methods: {
     async DeleteAtar(id) {
       let { data } = await axios.delete(
-        "http://localhost:3006/" + "Delete/" + id
+        "https://server-pass-404f2e7b3bdf.herokuapp.com/" + "Delete/" + id
       );
       if (data) {
         this.$store.commit("UP_DATA", data);
       }
     },
     async Copy(text) {
-      await navigator.clipboard.writeText(text);
-      ElMessage.success("הטקסט הועתק");
+      try {
+        await navigator.clipboard.writeText(text);
+        console.log(navigator);
+        ElMessage.success("הטקסט הועתק");
+      } catch (error) {
+        try {
+          document.execCommand(text);
+          ElMessage.success("הטקסט הועתק");
+        } catch (error) {
+          ElMessage.error("לא ניתן להעתיק");
+          // ElMessage(`${error}`);
+        }
+      }
+    },
+    returnOfWidth() {
+      //   return window.innerWidth < 450 ? 6 : 12;
     },
   },
 };
@@ -325,5 +341,123 @@ $button-color: #007bff;
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+@media screen and (max-width: 450px) {
+  ::-webkit-scrollbar {
+    height: 2px;
+  }
+
+  .HadVarim {
+    margin: 10px;
+    .box {
+      display: flex;
+      flex-direction: column;
+      align-items: right;
+      justify-content: center;
+      width: 140px;
+      margin: 20px auto;
+      height: 300px;
+      padding: 20px;
+      border: 1px solid $border-color;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      h1 {
+        position: absolute;
+        top: 30px;
+        font-size: 25px;
+        white-space: nowrap;
+        overflow-x: auto;
+        width: 80%;
+      }
+      .Type {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 13px;
+      }
+      .container_k_v {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        width: 70%;
+        padding-left: 50px;
+        // margin-top: 0px;
+        .key {
+          font-weight: bold;
+          margin-right: 10px;
+          color: $key-color;
+
+          .label {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 5px;
+          }
+          .URLToken {
+            position: relative;
+            background: #000;
+          }
+        }
+
+        .value {
+          color: $value-color;
+          margin-right: 10px;
+          overflow: hidden;
+          white-space: nowrap;
+          z-index: 1;
+          width: 70%;
+          .text {
+            display: block;
+            font-size: 10px;
+          }
+        }
+        .IconCopy {
+          position: absolute;
+          left: 10px;
+          top: 10px;
+          padding: 6px;
+          border-radius: 10px;
+          z-index: 2;
+          background: rgba(212, 219, 255, 0.366);
+          &:hover {
+            background: rgb(122, 122, 122);
+            cursor: pointer;
+            color: blue;
+          }
+        }
+      }
+      .buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 20px;
+
+        .edit-button,
+        .delete-button {
+          margin: 0 5px;
+          padding: 5px 10px;
+          font-size: 16px;
+          border: 1px solid $button-color;
+          border-radius: 5px;
+          color: #fff;
+          background-color: $button-color;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #0069d9;
+          }
+        }
+      }
+    }
+  }
+}
+
 //
 </style>

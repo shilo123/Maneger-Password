@@ -12,7 +12,9 @@ export default createStore({
       state.data2 = newData;
     },
     async FilterData(state, valSerch) {
-      state.data = await axios.get("http://localhost:3006/");
+      state.data = await axios.get(
+        "https://server-pass-404f2e7b3bdf.herokuapp.com/"
+      );
       state.data = state.data.data;
       if (valSerch !== "") {
         // console.log("valSerch", valSerch);
@@ -20,7 +22,9 @@ export default createStore({
           return e.Name.includes(valSerch);
         });
       } else {
-        state.data = await axios.get("http://localhost:3006/");
+        state.data = await axios.get(
+          "https://server-pass-404f2e7b3bdf.herokuapp.com/"
+        );
         state.data = state.data.data;
         console.log(state.data2);
       }

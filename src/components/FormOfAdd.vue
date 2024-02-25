@@ -135,7 +135,7 @@ export default {
   methods: {
     async Add_Form(Form) {
       let { data } = await axios.post(
-        "http://localhost:3006/" + "PushItem",
+        "https://server-pass-404f2e7b3bdf.herokuapp.com/" + "PushItem",
         Form
       );
       if (data) {
