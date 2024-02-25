@@ -21,6 +21,7 @@ import "../FileTheFontAwemson/css/duotone.min.css"; // כולל אייקונים
 import "../FileTheFontAwemson/css/v4-shims.min.css"; // עבור תאימות עם גרסה 4
 import "../FileTheFontAwemson/css/svg-with-js.min.css"; // עבור שילוב עם JavaScript ו-SVG
 import "../FileTheFontAwemson/css/sharp-solid.min.css"; // סגנון נוסף של אייקונים מלאים
+import './registerServiceWorker'
 
 const app = createApp(App);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
