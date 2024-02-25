@@ -384,6 +384,7 @@ $button-color: #007bff;
         border-radius: 5px;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         position: relative;
+        left: 17px;
         width: 70%;
         padding-left: 50px;
         // margin-top: 0px;
